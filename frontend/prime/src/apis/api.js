@@ -1,4 +1,3 @@
-
 const API_URL = import.meta.env.VITE_BACKDND_URL || "http://localhost:3000";
 export const api = {
   register: async (data) => {
@@ -22,7 +21,13 @@ export const api = {
       body: JSON.stringify(data),
     });
   },
-
+  logout: async () => {
+    return fetch(`${API_URL}/api/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+  },
+  
   getTasks: async () => {
     return fetch(`${API_URL}/api/v1/tasks`, {
       credentials: "include",
