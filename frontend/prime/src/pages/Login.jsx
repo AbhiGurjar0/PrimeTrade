@@ -17,7 +17,7 @@ export default function Login() {
       const data = await res.json();
       setMessage(data.message);
       if (res.ok)
-        window.location.href = "/dashboard";
+        window.location.href = "/";
     } catch {
       setMessage("Login failed");
     } finally {
