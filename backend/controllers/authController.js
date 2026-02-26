@@ -23,7 +23,7 @@ exports.registerUser = async (req, res) => {
     // create user
     const user = await User.create({
       name,
-      email,
+      email:email.toLowerCase(),
       password: hashedPassword,
     });
 
@@ -50,7 +50,7 @@ exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     // check user exists
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email.toLowerCase() });
 
     if (!user) {
       return res.status(401).json({
