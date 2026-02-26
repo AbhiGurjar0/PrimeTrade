@@ -1,6 +1,5 @@
 
-const API_URL = "http://localhost:3000";
-
+const API_URL = import.meta.env.VITE_BACKDND_URL || "http://localhost:3000";
 export const api = {
   register: async (data) => {
     return fetch(`${API_URL}/api/auth/register`, {
