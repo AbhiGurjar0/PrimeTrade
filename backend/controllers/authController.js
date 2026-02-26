@@ -103,4 +103,29 @@ exports.logoutUser = (req, res) => {
   res.status(200).json({
     message: "Logout successful",
   });
-}
+};
+
+exports.isLoggedIn = (req, res) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(200).json({
+      loggedIn: false,
+    });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    res.status(200).json({
+      loggedIn: true,
+      user: {
+        id: decoded.id,
+        role: decoded.role,
+      },
+    });
+  } catch (error) {
+    res.status(200).json({
+      loggedIn: false,
+    });
+  }
+};

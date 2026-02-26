@@ -17,8 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    origin:"https://primetrade-dy01.onrender.com",
+    origin: ["http://localhost:5173", "https://primetrade-dy01.onrender.com"],
     credentials: true,
   }),
 );

@@ -1,3 +1,5 @@
+
+
 const API_URL = import.meta.env.VITE_BACKDND_URL || "http://localhost:3000";
 export const api = {
   register: async (data) => {
@@ -27,7 +29,12 @@ export const api = {
       credentials: "include",
     });
   },
-  
+  isLoggedIn: async () => {
+    return fetch(`${API_URL}/api/auth/isLoggedIn`, {
+      credentials: "include",
+    });
+  },
+
   getTasks: async () => {
     return fetch(`${API_URL}/api/v1/tasks`, {
       credentials: "include",
