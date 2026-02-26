@@ -1,11 +1,19 @@
 import { useState } from "react";
 import { api } from "../apis/api";
-import { LogIn, Mail, Lock, Sparkles, AlertCircle, CheckCircle, ArrowRight } from "lucide-react";
+import {
+  LogIn,
+  Mail,
+  Lock,
+  Sparkles,
+  AlertCircle,
+  CheckCircle,
+  ArrowRight,
+} from "lucide-react";
 
 export default function Login() {
   const [form, setForm] = useState({
     email: "",
-    password: ""
+    password: "",
   });
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,8 +24,7 @@ export default function Login() {
       const res = await api.login(form);
       const data = await res.json();
       setMessage(data.message);
-      if (res.ok)
-        window.location.href = "/";
+      if (res.ok) window.location.href = "/";
     } catch {
       setMessage("Login failed");
     } finally {
@@ -26,14 +33,13 @@ export default function Login() {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleLogin();
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 flex items-center justify-center p-4 relative overflow-hidden">
-      
       {/* Animated background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
@@ -45,9 +51,8 @@ export default function Login() {
       <div className="relative w-full max-w-md">
         {/* Decorative top bar */}
         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-24 h-1.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full"></div>
-        
+
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-indigo-200/50 p-8 border border-white/50">
-          
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex p-3 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl shadow-lg shadow-indigo-200 mb-4">
@@ -152,27 +157,34 @@ export default function Login() {
 
             {/* Message Display */}
             {message && (
-              <div 
+              <div
                 className={`
                   mt-4 p-4 rounded-xl flex items-start gap-3 animate-slideIn
-                  ${message.toLowerCase().includes("success") || message.toLowerCase().includes("welcome")
-                    ? 'bg-green-50 border border-green-200' 
-                    : 'bg-red-50 border border-red-200'
+                  ${
+                    message.toLowerCase().includes("success") ||
+                    message.toLowerCase().includes("welcome")
+                      ? "bg-green-50 border border-green-200"
+                      : "bg-red-50 border border-red-200"
                   }
                 `}
               >
-                {message.toLowerCase().includes("success") || message.toLowerCase().includes("welcome") ? (
+                {message.toLowerCase().includes("success") ||
+                message.toLowerCase().includes("welcome") ? (
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
                 ) : (
                   <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
                 )}
-                <p className={`
+                <p
+                  className={`
                   text-sm flex-1
-                  ${message.toLowerCase().includes("success") || message.toLowerCase().includes("welcome") 
-                    ? 'text-green-700' 
-                    : 'text-red-700'
+                  ${
+                    message.toLowerCase().includes("success") ||
+                    message.toLowerCase().includes("welcome")
+                      ? "text-green-700"
+                      : "text-red-700"
                   }
-                `}>
+                `}
+                >
                   {message}
                 </p>
               </div>
@@ -184,7 +196,9 @@ export default function Login() {
                 <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white/80 text-gray-500">New here?</span>
+                <span className="px-4 bg-white/80 text-gray-500">
+                  New here?
+                </span>
               </div>
             </div>
 
@@ -204,12 +218,20 @@ export default function Login() {
 
       <style jsx>{`
         @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
         }
-        
+
         @keyframes slideIn {
           from {
             opacity: 0;
@@ -220,19 +242,19 @@ export default function Login() {
             transform: translateY(0);
           }
         }
-        
+
         .animate-blob {
           animation: blob 7s infinite;
         }
-        
+
         .animation-delay-2000 {
           animation-delay: 2s;
         }
-        
+
         .animation-delay-4000 {
           animation-delay: 4s;
         }
-        
+
         .animate-slideIn {
           animation: slideIn 0.3s ease-out forwards;
         }

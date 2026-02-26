@@ -7,8 +7,7 @@ const logger = require("./utils/logger");
 require("dotenv").config();
 // connect to database
 connectDB();
-logger.info("User logged in");
-logger.error("DB connection failed");
+
 
 const app = express();
 const PORT = 3000;

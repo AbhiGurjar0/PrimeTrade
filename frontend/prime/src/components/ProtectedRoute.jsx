@@ -3,33 +3,24 @@ import { Navigate } from "react-router-dom";
 import { api } from "../apis/api";
 
 export default function ProtectedRoute({ children }) {
-
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-
     const checkAuth = async () => {
-
       try {
-
         const res = await api.getTasks(); // protected API
 
-        if (res.ok)
-          setIsAuth(true);
-        else
-          setIsAuth(false);
-
+        if (res.ok) setIsAuth(true);
+        else setIsAuth(false);
       } catch {
         setIsAuth(false);
       } finally {
         setLoading(false);
       }
-
     };
 
     checkAuth();
-
   }, []);
 
   if (loading)
@@ -39,9 +30,7 @@ export default function ProtectedRoute({ children }) {
       </div>
     );
 
-  if (!isAuth)
-    return <Navigate to="/login" replace />;
+  if (!isAuth) return <Navigate to="/login" replace />;
 
   return children;
-
 }
