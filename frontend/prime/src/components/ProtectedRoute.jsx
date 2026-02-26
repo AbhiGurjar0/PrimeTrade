@@ -10,7 +10,6 @@ export default function ProtectedRoute({ children }) {
     const checkAuth = async () => {
       try {
         const res = await api.isLoggedIn(); // protected API
-
         if (res.ok) setIsAuth(true);
         else setIsAuth(false);
       } catch (error) {
