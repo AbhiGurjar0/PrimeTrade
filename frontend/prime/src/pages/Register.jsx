@@ -19,6 +19,11 @@ export default function Register() {
     
     const res = await api.register(form);
     const data = await res.json();
+    if(res.ok) {
+      setForm({ name: "", email: "", password: "" });
+      window.location.href = "/login"; 
+    }
+
     
     setMessage(data.message);
     setMessageType(res.ok ? 'success' : 'error');
