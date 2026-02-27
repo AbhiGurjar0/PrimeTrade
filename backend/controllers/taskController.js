@@ -1,15 +1,15 @@
-const Task = require("../models/Task");
+const {
+  createTaskService,
+  getTasksService,
+  getTaskService,
+  updateTaskService,
+  deleteTaskService,
+} = require("../services/taskService");
 
 // CREATE TASK
 exports.createTask = async (req, res, next) => {
   try {
-    const task = await Task.create({
-      title: req.body.title,
-      description: req.body.description,
-      status: req.body.status,
-      user: req.user.id,
-    });
-
+    const task = await createTaskService(req.body, req.user.id);
     res.status(201).json(task);
   } catch (error) {
     next(error);
@@ -19,7 +19,7 @@ exports.createTask = async (req, res, next) => {
 // GET ALL TASKS
 exports.getTasks = async (req, res, next) => {
   try {
-    const tasks = await Task.find({ user: req.user.id });
+    const tasks = await getTasksService(req.user.id);
     res.status(200).json(tasks);
   } catch (error) {
     next(error);
@@ -29,12 +29,10 @@ exports.getTasks = async (req, res, next) => {
 // GET SINGLE TASK
 exports.getTask = async (req, res, next) => {
   try {
-    const task = await Task.findById(req.params.id);
+    const task = await getTaskService(req.params.id, req.user.id);
 
     if (!task)
-      return res.status(404).json({
-        message: "Task not found",
-      });
+      return res.status(404).json({ message: "Task not found" });
 
     res.json(task);
   } catch (error) {
@@ -45,9 +43,14 @@ exports.getTask = async (req, res, next) => {
 // UPDATE TASK
 exports.updateTask = async (req, res, next) => {
   try {
-    const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
-      returnDocument: "after",
-    });
+    const task = await updateTaskService(
+      req.params.id,
+      req.body,
+      req.user.id
+    );
+
+    if (!task)
+      return res.status(404).json({ message: "Task not found" });
 
     res.json(task);
   } catch (error) {
@@ -58,11 +61,9 @@ exports.updateTask = async (req, res, next) => {
 // DELETE TASK
 exports.deleteTask = async (req, res, next) => {
   try {
-    await Task.findByIdAndDelete(req.params.id);
+    await deleteTaskService(req.params.id, req.user.id);
 
-    res.json({
-      message: "Task deleted",
-    });
+    res.json({ message: "Task deleted" });
   } catch (error) {
     next(error);
   }
